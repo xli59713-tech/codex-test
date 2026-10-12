@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>鹈鹕骑行 · Pelican Ride</title>
+  <style>
+    :root { color-scheme: light; font-family: system-ui, "Microsoft YaHei", sans-serif; color: #263e40; background: #f8f5ed; }
+    * { box-sizing: border-box; }
+    body { margin: 0; min-height: 100vh; display: grid; place-items: center; padding: 24px; }
+    main { width: min(100%, 880px); }
+    header { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 24px; flex-wrap: wrap; }
+    h1 { margin: 8px 0; font-size: clamp(26px, 5vw, 40px); font-weight: 650; letter-spacing: .03em; }
+    .eyebrow { margin: 0; font-size: 12px; letter-spacing: .18em; color: #526e69; }
+    header > p { font-size: 14px; color: #526e69; }
+    .scene { overflow: hidden; border: 1px solid #d5dfd5; border-radius: 24px; background: #e4eee5; }
+    svg { display: block; width: 100%; height: auto; }
+    footer { display: flex; align-items: center; gap: 18px; margin-top: 22px; flex-wrap: wrap; }
+    button { border: 0; border-radius: 999px; padding: 12px 24px; background: #294f46; color: white; font: inherit; cursor: pointer; }
+    button:hover { background: #1d3b33; }
+    button:focus-visible { outline: 3px solid #c07536; outline-offset: 4px; }
+    #status { margin: 0; color: #526e69; font-size: 14px; }
+    noscript p { color: #7e4021; }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <div><p class="eyebrow">PELICAN RIDE / 01</p><h1>慢慢骑，吹吹风。</h1></div>
+      <p>一只鹈鹕的骑行时光</p>
+    </header>
+    <div class="scene">
+      <svg id="scene" viewBox="0 0 800 480" role="img" aria-labelledby="scene-title scene-desc" xmlns="http://www.w3.org/2000/svg">
+        <title id="scene-title">鹈鹕骑自行车</title>
+        <desc id="scene-desc">长嘴白鹈鹕骑着绿色自行车，双脚交替踩踏，车轮转动，路面标线向后移动。</desc>
+        <defs>
+          <pattern id="road-pattern" width="160" height="12" patternUnits="userSpaceOnUse">
+            <path d="M20 6H80" stroke="#b4bca6" stroke-width="3" stroke-linecap="round"/>
+          </pattern>
+          <g id="spokes" stroke="#83958d" stroke-width="2">
+            <path d="M-58 0H58 M0-58V58 M-41-41L41 41 M-41 41L41-41"/>
+          </g>
+        </defs>
+        <!-- 静态背景；只有道路纹理滚动。 -->
+        <rect width="800" height="480" fill="#e4eee5"/>
+        <circle cx="648" cy="92" r="42" fill="#f4cf79"/>
+        <g fill="#f7f8ef">
+          <path d="M98 113a24 24 0 0 1 43-15 20 20 0 0 1 35 15Z"/>
+          <path d="M456 78a20 20 0 0 1 36-13 17 17 0 0 1 30 13Z"/>
+        </g>
+        <path d="M0 321Q135 252 287 313T570 307T800 300V480H0Z" fill="#c9d9c0"/>
+        <path d="M0 361Q170 320 340 356T800 335V480H0Z" fill="#b4c9ad"/>
+        <rect y="412" width="800" height="68" fill="#e9e4cc"/>
+        <path d="M0 412H800" stroke="#8da184" stroke-width="3"/>
+        <rect y="442" width="800" height="12" fill="url(#road-pattern)"/>
+        <ellipse cx="405" cy="414" rx="204" ry="10" fill="#294f46" opacity=".12"/>
+
+        <!-- 两个车轮的辐条绕各自轮轴旋转。 -->
+        <g fill="#f8f5ed" stroke="#304e48" stroke-width="8">
+          <circle cx="275" cy="345" r="65"/><circle cx="535" cy="345" r="65"/>
+        </g>
+        <g transform="translate(275 345)"><g id="rear-wheel"><use href="#spokes"/></g></g>
+        <g transform="translate(535 345)"><g id="front-wheel"><use href="#spokes"/></g></g>
+
+        <!-- 远侧腿先绘制，让车架遮挡它。 -->
+        <path id="far-leg" d="M369 246L407 287L396 329" fill="none" stroke="#bd7b37" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/>
+        <g fill="none" stroke="#398878" stroke-width="9" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M275 345L343 274L390 345Z M343 274H496L390 345 M496 274L535 345"/>
+          <path d="M343 274L331 250 M496 274L486 242"/>
+        </g>
+        <path d="M309 249H355 M485 242L481 226H513" fill="none" stroke="#304e48" stroke-width="9" stroke-linecap="round"/>
+        <g fill="#304e48"><circle cx="275" cy="345" r="7"/><circle cx="535" cy="345" r="7"/></g>
+        <circle cx="390" cy="345" r="20" fill="#f8f5ed" stroke="#304e48" stroke-width="4"/>
+        <path id="crank" d="M396 329L384 361" stroke="#304e48" stroke-width="5" stroke-linecap="round"/>
+
+        <!-- 长嘴、喉囊和白色身体构成鹈鹕轮廓。 -->
+        <g id="bird" stroke="#304e48" stroke-width="3" stroke-linejoin="round">
+          <path d="M315 213L276 197L292 229L331 240Z" fill="#f9faf1"/>
+          <path d="M315 193C334 176 375 185 397 202C416 191 409 160 423 138C438 117 467 127 471 147C474 165 456 182 450 207C443 237 415 258 364 256C325 255 297 236 301 216Z" fill="#fffdf2"/>
+          <path d="M461 149L571 160Q522 197 464 175Z" fill="#eab75f"/>
+          <path d="M458 147L582 156L579 162L460 161Z" fill="#edaa48"/>
+          <path d="M326 204Q364 186 402 225Q365 243 326 218" fill="#dae4da"/>
+          <path d="M397 220Q439 232 481 226" fill="none" stroke-width="10" stroke-linecap="round"/>
+          <circle cx="452" cy="143" r="4" fill="#263e40" stroke="none"/>
+          <circle cx="453" cy="142" r="1.2" fill="white" stroke="none"/>
+        </g>
+        <path id="near-leg" d="M365 246L347 303L384 361" fill="none" stroke="#e6a448" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+        <g stroke="#304e48" stroke-width="5" stroke-linecap="round">
+          <path id="far-pedal" d="M384 329H408"/><path id="near-pedal" d="M372 361H396"/>
+        </g>
+        <path id="foot" d="M375 357L404 360L379 366Z" fill="#e6a448" stroke="#304e48" stroke-width="2"/>
+      </svg>
+    </div>
+    <footer>
+      <button id="toggle" type="button" aria-controls="scene" hidden>暂停动画</button>
+      <p id="status" role="status">静态插画 · 启用脚本可播放</p>
+    </footer>
+    <noscript><p>启用 JavaScript 后可播放动画；当前显示静态插画。</p></noscript>
+  </main>
+  <script>
+    // 使用同一时间轴驱动车轮、曲柄和腿，暂停时保留当前姿态。
+    const byId = (id) => document.getElementById(id);
+    const toggle = byId("toggle");
+    const status = byId("status");
+    const motionPreference = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let running = !motionPreference.matches;
+    let elapsed = 0;
+    let lastTime = null;
+    let frameId = null;
+
+    function render(seconds) {
+      const angle = seconds * Math.PI * 2 / 1.4;
+      const degrees = angle * 180 / Math.PI;
+      const bob = Math.sin(angle * 2) * 2;
+      const x = 390 + Math.cos(angle) * 23;
+      const y = 345 + Math.sin(angle) * 23;
+      const oppositeX = 780 - x;
+      const oppositeY = 690 - y;
+      byId("rear-wheel").setAttribute("transform", "rotate(" + degrees + ")");
+      byId("front-wheel").setAttribute("transform", "rotate(" + degrees + ")");
+      byId("bird").setAttribute("transform", "translate(0 " + bob + ")");
+      byId("near-leg").setAttribute("d", "M365 " + (246 + bob) + " Q335 301 " + x + " " + y);
+      byId("far-leg").setAttribute("d", "M369 " + (246 + bob) + " Q420 290 " + oppositeX + " " + oppositeY);
+      byId("crank").setAttribute("d", "M" + x + " " + y + "L" + oppositeX + " " + oppositeY);
+      byId("near-pedal").setAttribute("d", "M" + (x - 12) + " " + y + "h24");
+      byId("far-pedal").setAttribute("d", "M" + (oppositeX - 12) + " " + oppositeY + "h24");
+      byId("foot").setAttribute("d", "M" + (x - 9) + " " + (y - 5) + "l29 4-25 6Z");
+      byId("road-pattern").setAttribute("patternTransform", "translate(" + (-(seconds * 120) % 160) + " 0)");
+    }
+
+    function tick(now) {
+      if (!running) return;
+      if (lastTime !== null) elapsed += Math.min((now - lastTime) / 1000, 0.05);
+      lastTime = now;
+      render(elapsed);
+      frameId = requestAnimationFrame(tick);
+    }
+
+    function setRunning(value) {
+      running = value;
+      cancelAnimationFrame(frameId);
+      lastTime = null;
+      toggle.textContent = running ? "暂停动画" : "播放动画";
+      status.textContent = running ? "正在骑行 · 不必赶路" : "已暂停 · 歇一会儿";
+      if (running) frameId = requestAnimationFrame(tick);
+    }
+
+    toggle.hidden = false;
+    toggle.addEventListener("click", () => setRunning(!running));
+    motionPreference.addEventListener("change", (event) => setRunning(!event.matches));
+    render(0);
+    setRunning(running);
+  </script>
+</body>
+</html>
